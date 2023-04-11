@@ -14,7 +14,7 @@ Design idea:
 
   We assign each process, when entering the queue, an **enter_time** for it so that for items with the same value, the FIFO behavior is guaranteed. In reality, an **enter_time** entry should be associated with the actual time the machine is running at (epoch time presumably). 
 
-  ```C
+  ```c
   struct proc_struct {
   	/* ... */
       
@@ -30,7 +30,7 @@ Design idea:
 
   We **do not** consider the case in which the number of processes exceeds upper limit of `size_t` type enters the queue. In such case, the skew heap needs to be modified significantly (which also breaks the conciseness of the ucore design). To solve the corner case we haven't considered, in a trivial way, we can use a single queue in which each time we pick the process with largest good value in $O(n)$ time, by scanning through the entire queue.
 
-  ```C
+  ```c
   /* kern/schedule/priority_sched.h */
   #ifndef __KERN_SCHEDULE_SCHED_PRIORITY_H__
   #define __KERN_SCHEDULE_SCHED_PRIORITY_H__
@@ -141,7 +141,7 @@ Design idea:
 
 - We append an entry in `ulib.h`, `ulib.c` that calls `sys_labschedule_set_priority(uint64_t arg[])`.
 
-  ```C
+  ```c
   /* kern/syscall/syscall.c */
   static int
   sys_labschedule_set_priority(uint64_t arg[]) {
